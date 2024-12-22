@@ -1,13 +1,14 @@
+const config = require("./utils/config.js");
 const express = require("express");
 const app = express();
 const cors = require("cors");
 const mongoose = require("mongoose");
 const Blog = require("./models/blog");
 
-const mongoUrl =
-  "mongodb+srv://fullstackopen:F25U4P2SRrrrpl0O@cluster0.akwx4.mongodb.net/BlogsApp?retryWrites=true&w=majority&appName=Cluster0";
+console.log("connecting to ", config.MONGODB_URI);
+
 mongoose
-  .connect(mongoUrl)
+  .connect(config.MONGODB_URI)
   .then(() => {
     console.log("Connected to MongoDB");
   })
@@ -32,7 +33,6 @@ app.post("/api/blogs", (request, response) => {
   });
 });
 
-const PORT = 3003;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+app.listen(config.PORT, () => {
+  console.log(`Server running on port ${config.PORT}`);
 });
